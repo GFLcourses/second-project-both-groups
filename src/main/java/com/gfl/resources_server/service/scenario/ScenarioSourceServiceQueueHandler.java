@@ -1,37 +1,28 @@
 package com.gfl.resources_server.service.scenario;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gfl.resources_server.model.Scenario;
+import com.gfl.resources_server.service.util.SourceFileReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 @Service
 public class ScenarioSourceServiceQueueHandler implements ScenarioSourceService {
-    private static final Queue<Scenario> SCENARIOS = new LinkedList<>();
-
-    @Value("${scenario.filePath}")
-    private String scenarioFilePath;
+    private static Queue<Scenario> scenarios;
+    private final SourceFileReaderService sourceFileReaderService;
 
     @Autowired
-    public ScenarioSourceServiceQueueHandler() {  }
+    public ScenarioSourceServiceQueueHandler(SourceFileReaderService sourceFileReaderService) {
+        this.sourceFileReaderService = sourceFileReaderService;
+    }
 
     @PostConstruct
     private void init() {
         try {
-            InputStream inputStream = new ClassPathResource(scenarioFilePath).getInputStream();
-            ObjectMapper objectMapper = new ObjectMapper();
-            SCENARIOS.addAll(objectMapper.readValue(
-                    inputStream,
-                    new TypeReference<List<Scenario>>() {  }
-            ));
+            scenarios = new LinkedList<>(sourceFileReaderService.getScenarios());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -39,6 +30,6 @@ public class ScenarioSourceServiceQueueHandler implements ScenarioSourceService 
 
     @Override
     public Scenario get() {
-        return SCENARIOS.peek();
+        return scenarios.peek();
     }
 }
