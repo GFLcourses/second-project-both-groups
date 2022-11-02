@@ -15,7 +15,6 @@ public class WebMvcConfig {
         try {
             return authenticationConfiguration.getAuthenticationManager();
         } catch (Exception e) {
-            System.out.println("It's called PIZDEC -_-");
             throw new RuntimeException();
         }
     }
