@@ -4,6 +4,7 @@ import com.gfl.resources_server.response_dto.ProxyConfigHolderDto;
 import com.gfl.resources_server.service.mapper.ProxyConfigHolderMapper;
 import com.gfl.resources_server.service.proxy.ProxySourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class ProxySourceControllerV1 {
     private final ProxyConfigHolderMapper proxyMapper;
 
     @Autowired
-    public ProxySourceControllerV1(ProxySourceService proxySourceService,
+    public ProxySourceControllerV1(@Qualifier("proxyFacadeService") ProxySourceService proxySourceService,
                                    ProxyConfigHolderMapper proxyMapper) {
         this.proxySourceService = proxySourceService;
         this.proxyMapper = proxyMapper;
