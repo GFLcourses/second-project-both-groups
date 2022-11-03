@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import okhttp3.OkHttpClient;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.Authenticator;
@@ -22,6 +23,9 @@ public class ProxyValidatorService implements ProxyValidator {
     private static final HttpClient client = HttpClient.newHttpClient();
     public static Logger logger = Logger.getLogger(ProxyValidatorService.class.getName());
 
+    @Value("${source-properties.proxy-url}")
+    private String url;
+
     @Autowired
     public ProxyValidatorService() {  }
 
@@ -31,8 +35,9 @@ public class ProxyValidatorService implements ProxyValidator {
         boolean status = false;
 
 
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://pubproxy.com/api/proxy"))
+                .uri(URI.create(url))
                 .build();
         HttpResponse<String> response =
                 client.send(request, HttpResponse.BodyHandlers.ofString());
