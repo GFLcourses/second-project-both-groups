@@ -36,6 +36,7 @@ public class ProxyValidatorService implements ProxyValidator {
                     .build();
 
             var call = okHttpClient.newCall(request);
+            Thread.sleep(17228500); // 24 * 60 * 60 * 1000 = 86_400_000 millisecond per day / 50 max request per day without premium = 17228000
             Response httpResponse = call.execute();
             System.out.println(httpResponse.code());
 
@@ -44,6 +45,8 @@ public class ProxyValidatorService implements ProxyValidator {
             //  and then just return true/false in depends of http response code.
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return true;
