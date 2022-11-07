@@ -4,4 +4,6 @@ import com.gfl.resources_server.model.Scenario;
 
 public interface ScenarioSourceService {
     Scenario get();
+
+    void setScenario(Scenario scenario);
 }
