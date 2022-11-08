@@ -21,6 +21,6 @@ public class ProxyFacadeService implements ProxySourceService {
         if (proxyValidatorService.validate(proxyConfigHolder)) {
             return proxyConfigHolder;
         }
-        return this.get();
+        return this.get(); // sorry for recursion :3
     }
 }
