@@ -30,6 +30,11 @@ public class ScenarioSourceServiceQueueHandler implements ScenarioSourceService 
 
     @Override
     public Scenario get() {
-        return scenarios.peek();
+        return scenarios.poll();
+    }
+
+    @Override
+    public void setScenario(Scenario scenario) {
+        scenarios.add(scenario);
     }
 }
