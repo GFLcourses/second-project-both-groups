@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 public class ProxyValidatorService implements ProxyValidator {
     @Value("${validator-properties.connectionAwaitTime}")
     private Long connectionAwaitTime;
-
     @Value("${validator-properties.site}")
     private String testSite;
 
