@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,11 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class ProxyValidatorService implements ProxyValidator {
+    @Value("${validator-properties.connectionAwaitTime}")
+    private Long connectionAwaitTime;
+
+    @Value("${validator-properties.site}")
+    private String testSite;
 
     @Autowired
     public ProxyValidatorService() {  }
@@ -27,17 +33,17 @@ public class ProxyValidatorService implements ProxyValidator {
             SocketAddress socketAddress = new InetSocketAddress(
                     proxyConfigHolder.getProxyNetworkConfig().getHostname(),
                     proxyConfigHolder.getProxyNetworkConfig().getPort());
-
             Proxy proxy = new Proxy(Proxy.Type.HTTP, socketAddress);
 
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
-                    .connectTimeout(60L, TimeUnit.SECONDS)
+                    .connectTimeout(connectionAwaitTime, TimeUnit.SECONDS)
+                    .readTimeout(connectionAwaitTime, TimeUnit.SECONDS)
+                    .writeTimeout(connectionAwaitTime, TimeUnit.SECONDS)
                     .proxy(proxy)
                     .build();
-
             Request request = new Request.Builder()
                     .get()
-                    .url("http://info.cern.ch/")
+                    .url(testSite)
                     .build();
 
             Call call = okHttpClient.newCall(request);

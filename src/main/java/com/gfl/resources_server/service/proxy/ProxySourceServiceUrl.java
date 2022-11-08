@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ProxySourceServiceUrl implements ProxySourceService {
@@ -26,8 +27,9 @@ public class ProxySourceServiceUrl implements ProxySourceService {
     }
 
     @Override
-    public ProxyConfigHolder get() {
+    public synchronized ProxyConfigHolder get() {
         try {
+            TimeUnit.SECONDS.sleep(2L);
             Request request = new Request.Builder()
                     .get()
                     .url(proxyUrl)
@@ -38,7 +40,7 @@ public class ProxySourceServiceUrl implements ProxySourceService {
             assert responseBody != null;
             var proxyFromSite = objectMapper.readValue(responseBody.string(), ThirdPartyProxy.class);
             return thirdProxyToProxyConfigHolderMapper.map(proxyFromSite);
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
