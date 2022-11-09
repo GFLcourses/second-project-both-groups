@@ -5,6 +5,8 @@ import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class ProxyValidatorService implements ProxyValidator {
+    public static final Logger LOGGER = LoggerFactory.getLogger(ProxyValidatorService.class);
+
     @Value("${validator-properties.connectionAwaitTime}")
     private Long connectionAwaitTime;
     @Value("${validator-properties.site}")
@@ -48,11 +52,10 @@ public class ProxyValidatorService implements ProxyValidator {
             Call call = okHttpClient.newCall(request);
             Response httpResponse = call.execute();
 
-            System.out.println(httpResponse.code()); // TODO: 07.11.2022 change it to logging, please
-
+            LOGGER.info(String.format("validation request code=%s", httpResponse.code()));
             return httpResponse.code() == HttpStatus.OK.value();
         } catch (IOException e) {
-            System.out.println(e.getMessage()); // TODO: 07.11.2022 change it to logging, please
+            LOGGER.warn("Proxy validation failed. Caused exception: " + e);
             return false;
         }
     }
