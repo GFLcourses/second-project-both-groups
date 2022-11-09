@@ -52,7 +52,7 @@ public class ProxyValidatorService implements ProxyValidator {
             Call call = okHttpClient.newCall(request);
             Response httpResponse = call.execute();
 
-            LOGGER.info("Proxy is valid " + String.valueOf(httpResponse.code()));
+            LOGGER.info(String.format("validation request code=%s", httpResponse.code()));
             return httpResponse.code() == HttpStatus.OK.value();
         } catch (IOException e) {
             LOGGER.warn("Proxy validation failed. Caused exception: " + e);
