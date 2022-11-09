@@ -1,7 +1,6 @@
 package com.gfl.resources_server.rest_controller;
 
 import com.gfl.resources_server.model.Scenario;
-import com.gfl.resources_server.response_dto.ScenarioDto;
 import com.gfl.resources_server.service.mapper.ScenarioMapper;
 import com.gfl.resources_server.service.scenario.ScenarioSourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +22,21 @@ public class ScenarioSourceControllerV1 {
     }
 
     @GetMapping("/")
-    public ResponseEntity<ScenarioDto> getScenario() {
+    public ResponseEntity<?> getScenario() {
         try {
             var scenario = scenarioSource.get();
             var scenarioDto = scenarioMapper.map(scenario);
             return new ResponseEntity<>(scenarioDto, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("This queue is empty", HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> setScenario(@RequestBody Scenario scenario) {
-        scenarioSource.setScenario(scenario);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    public ResponseEntity<String> setScenario(@RequestBody Scenario scenario) {
+            scenarioSource.setScenario(scenario);
+        return new ResponseEntity<>("Scenario is added", HttpStatus.CREATED);
+
     }
 }
