@@ -1,6 +1,6 @@
 package com.gfl.resources_server.rest_controller;
 
-import com.gfl.resources_server.response_dto.ProxyConfigHolderDto;
+import com.gfl.resources_server.exception.ThirdPartyServiceProxiesDailyLimitException;
 import com.gfl.resources_server.service.mapper.ProxyConfigHolderMapper;
 import com.gfl.resources_server.service.proxy.ProxySourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,13 @@ public class ProxySourceControllerV1 {
     }
 
     @GetMapping("/")
-    public ResponseEntity<ProxyConfigHolderDto> getProxy() {
-        var proxy = proxySourceService.get();
-        var proxyDto = proxyMapper.map(proxy);
-        return new ResponseEntity<>(proxyDto, HttpStatus.OK);
+    public ResponseEntity<?> getProxy() {
+        try {
+            var proxy = proxySourceService.get();
+            var proxyDto = proxyMapper.map(proxy);
+            return new ResponseEntity<>(proxyDto, HttpStatus.OK);
+        } catch (ThirdPartyServiceProxiesDailyLimitException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
+        }
     }
 }

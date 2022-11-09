@@ -18,12 +18,9 @@ import java.net.Proxy;
 import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;
 
-
-
 @Service
 public class ProxyValidatorService implements ProxyValidator {
-    public static final Logger logger = LoggerFactory.getLogger(ProxyValidatorService.class);
-
+    public static final Logger LOGGER = LoggerFactory.getLogger(ProxyValidatorService.class);
 
     @Value("${validator-properties.connectionAwaitTime}")
     private Long connectionAwaitTime;
@@ -55,13 +52,11 @@ public class ProxyValidatorService implements ProxyValidator {
             Call call = okHttpClient.newCall(request);
             Response httpResponse = call.execute();
 
-            logger.info("Proxy is valid " + String.valueOf(httpResponse.code()));
+            LOGGER.info("Proxy is valid " + String.valueOf(httpResponse.code()));
             return httpResponse.code() == HttpStatus.OK.value();
         } catch (IOException e) {
-            logger.warn("Proxy not valid " + e.getMessage());
+            LOGGER.warn("Proxy validation failed. Caused exception: " + e);
             return false;
         }
-
     }
-
 }
