@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Service
 public class ScenarioSourceServiceQueueHandler implements ScenarioSourceService {
+
+    private static final Logger logger = Logger.getLogger(ScenarioSourceServiceQueueHandler.class.getName());
+
     private static Queue<Scenario> scenarios;
     private final SourceFileReaderService sourceFileReaderService;
 
@@ -23,7 +27,9 @@ public class ScenarioSourceServiceQueueHandler implements ScenarioSourceService 
     private void init() {
         try {
             scenarios = new LinkedList<>(sourceFileReaderService.getScenarios());
+            logger.info("ScenarioSourceServiceQueueHandler working");
         } catch (IOException e) {
+            logger.warning("ScenarioSourceServiceQueueHandler error in init method");
             throw new RuntimeException(e);
         }
     }

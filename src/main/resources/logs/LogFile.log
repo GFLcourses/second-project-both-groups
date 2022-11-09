@@ -1,0 +1,23 @@
+2022-11-09 02:54:33,937 INFO org.springframework.boot.StartupInfoLogger [main] Starting ResourcesServiceApplication using Java 17.0.5 on DESKTOP-B2BUC1H with PID 16952 (D:\second-project-both-groups\build\classes\java\main started by vladb in D:\second-project-both-groups)
+2022-11-09 02:54:33,940 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-11-09 02:54:34,646 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 1390 (http)
+2022-11-09 02:54:34,653 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-1390"]
+2022-11-09 02:54:34,653 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-11-09 02:54:34,654 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-09 02:54:34,858 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-11-09 02:54:34,858 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 880 ms
+2022-11-09 02:54:35,087 INFO com.gfl.resources_server.service.scenario.ScenarioSourceServiceQueueHandler [main] ScenarioSourceServiceQueueHandler working
+2022-11-09 02:54:35,196 INFO org.springframework.security.web.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65fe2691, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@479111ba, org.springframework.security.web.context.SecurityContextPersistenceFilter@9e54c59, org.springframework.security.web.header.HeaderWriterFilter@3667faa8, org.springframework.security.web.authentication.logout.LogoutFilter@38cedb7d, com.gfl.resources_server.security.RequestFilter@574cd322, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a2e7bcb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@575c3e9b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@57ad1178, org.springframework.security.web.session.SessionManagementFilter@40729f01, org.springframework.security.web.access.ExceptionTranslationFilter@6198e9b5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@630390b9]
+2022-11-09 02:54:35,365 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-1390"]
+2022-11-09 02:54:35,377 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 1390 (http) with context path ''
+2022-11-09 02:54:35,387 INFO org.springframework.boot.StartupInfoLogger [main] Started ResourcesServiceApplication in 1.696 seconds (JVM running for 2.256)
+2022-11-09 02:54:35,408 INFO org.apache.juli.logging.DirectJDKLog [http-nio-1390-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-09 02:54:35,408 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-1390-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-11-09 02:54:35,408 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-1390-exec-1] Completed initialization in 0 ms
+2022-11-09 02:54:43,328 INFO com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-2] Proxy is valid 200
+2022-11-09 02:54:46,780 INFO com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-4] Proxy is valid 500
+2022-11-09 02:55:10,069 WARN com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-4] Proxy not valid Failed to connect to /218.255.3.247:80
+2022-11-09 02:55:33,543 WARN com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-4] Proxy not valid Failed to connect to /104.37.168.141:80
+2022-11-09 02:55:36,592 WARN com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-2] Proxy not valid Failed to connect to /138.68.235.51:80
+2022-11-09 02:55:37,053 INFO com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-4] Proxy is valid 200
+2022-11-09 02:55:40,431 INFO com.gfl.resources_server.service.proxy.ProxyValidatorService [http-nio-1390-exec-2] Proxy is valid 200

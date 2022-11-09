@@ -5,6 +5,8 @@ import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,13 @@ import java.net.Proxy;
 import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;
 
+
+
 @Service
 public class ProxyValidatorService implements ProxyValidator {
+    public static final Logger logger = LoggerFactory.getLogger(ProxyValidatorService.class);
+
+
     @Value("${validator-properties.connectionAwaitTime}")
     private Long connectionAwaitTime;
     @Value("${validator-properties.site}")
@@ -48,12 +55,13 @@ public class ProxyValidatorService implements ProxyValidator {
             Call call = okHttpClient.newCall(request);
             Response httpResponse = call.execute();
 
-            System.out.println(httpResponse.code()); // TODO: 07.11.2022 change it to logging, please
-
+            logger.info("Proxy is valid " + String.valueOf(httpResponse.code()));
             return httpResponse.code() == HttpStatus.OK.value();
         } catch (IOException e) {
-            System.out.println(e.getMessage()); // TODO: 07.11.2022 change it to logging, please
+            logger.warn("Proxy not valid " + e.getMessage());
             return false;
         }
+
     }
+
 }
