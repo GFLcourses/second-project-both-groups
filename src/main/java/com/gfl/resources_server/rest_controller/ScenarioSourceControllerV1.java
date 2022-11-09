@@ -1,7 +1,5 @@
 package com.gfl.resources_server.rest_controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gfl.resources_server.model.Scenario;
 import com.gfl.resources_server.response_dto.ScenarioDto;
 import com.gfl.resources_server.service.mapper.ScenarioMapper;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class ScenarioSourceControllerV1 {
     private final ScenarioSourceService scenarioSource;
     private final ScenarioMapper scenarioMapper;
-
-    private ObjectMapper objectMapper;
 
     @Autowired
     public ScenarioSourceControllerV1(ScenarioSourceService scenarioSource,
@@ -35,13 +31,11 @@ public class ScenarioSourceControllerV1 {
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @PostMapping("/")
     public ResponseEntity<?> setScenario(@RequestBody Scenario scenario) {
-            scenarioSource.setScenario(scenario);
+        scenarioSource.setScenario(scenario);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 }
